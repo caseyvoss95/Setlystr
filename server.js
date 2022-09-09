@@ -7,6 +7,13 @@ const app = express();
 const setlistController = require('./controllers/setlist.js');
 
 require("dotenv").config(); 
+mongoose.connect(process.env.DATABASE_URL);
+
+//database connection
+const db = mongoose.connection;
+db.on('error', (err) => console.log(err.message + ' is mongod not running?'));
+db.on('connected', () => console.log('mongo connected'));
+db.on('disconnected', () => console.log('mongo disconnected'));
 
 //middleware
 app.use(express.urlencoded({ extended: true }));
