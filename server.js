@@ -1,12 +1,13 @@
 //dependencies
 const express = require("express");
 const mongoose = require("mongoose"); 
+const setlistController = require('./controllers/setlist.js');
 const methodOverride = require('method-override')
 
-const app = express();
-const setlistController = require('./controllers/setlist.js');
 
 require("dotenv").config(); 
+const app = express();
+
 mongoose.connect(process.env.DATABASE_URL);
 
 //database connection

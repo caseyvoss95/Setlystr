@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const songSchema = new Schema({
     title: String,
-    artsts: [String],
-    duration: Number,
-    genres: [String],
-    religion: String
+    artist: String,
+    genre: String,
+    religion: String,
+    duration: Number
 });
 
 const Song = mongoose.model('Song', songSchema);

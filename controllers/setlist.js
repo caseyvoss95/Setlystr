@@ -1,7 +1,7 @@
 //dependencies
 const express = require('express');
 const router = express.Router();
-const Song = require('../models/song');
+const Song = require('../models/song.js');
 
 //index
 router.get('/', (req, res) => {
