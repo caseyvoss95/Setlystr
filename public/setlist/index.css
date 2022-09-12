@@ -1,26 +1,13 @@
-h1 {
-    text-align: center;
-}
-table {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-table, td {
-    border: 1px solid;
-}
-
-form {
-    display: inline;
-}
-
 input {
     float: right;
     margin-left: 50px;
 }
 
-button {
-    margin: 0 auto;
-    margin-bottom: 15px;
+#create {
+    margin: 0 auto 15px;
     display: block;
+}
+
+a {
+    text-decoration: none;
 }

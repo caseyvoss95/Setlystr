@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/setlist/setlist.css">
     <link rel="stylesheet" href="/setlist/index.css">
     <title>index</title>
 </head>
@@ -12,7 +13,7 @@
 <body>
     <h1>setlist</h1>
 
-    <a href="/setlist/new"><button>add new song</button></a>
+    <a href="/setlist/new"><button id="create">add new song</button></a>
 
     <table>
         <tbody>
@@ -24,11 +25,9 @@
                     </a>
                     <form action="/setlist/<%=songs[i]._id%>?_method=DELETE" method="POST">
                         <input type="submit" value="delete">
-
                 </td>
             </tr>
             </form>
-
             <%}%>
         </tbody>
     </table>
