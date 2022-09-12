@@ -15,10 +15,12 @@ form {
 }
 
 input {
-    margin-left: 15px;
+    float: right;
+    margin-left: 50px;
 }
 
 button {
-    display: center;
-    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    display: block;
 }
