@@ -21,8 +21,7 @@ router.get('/new', (req, res) => {
 //destroy
 router.delete('/:id', (req, res) => {
     Song.findByIdAndRemove(req.params.id, req.body, (error, foundSong) => {
-        console.log(foundSong);
-        res.redirect('/');
+        res.redirect('/setlist');
     })
 });
 
@@ -36,7 +35,6 @@ router.put('/:id', (req, res) => {
 //create
 router.post('/', (req, res) => {
     Song.create(req.body, (error, createdSong) => {
-        //createdSong.genre[0] = req.body.genre;
         res.redirect('/setlist');
     })
 });
@@ -45,10 +43,18 @@ router.post('/', (req, res) => {
 router.get('/:id/edit', (req, res) => {
     Song.findById(req.params.id, (error, foundSong) => {
         res.render('setlist/edit.ejs', {
-            song: foundSong
+            song : foundSong
         });
     });
 });
 
+//show
+router.get('/:id', (req, res) => {
+    Song.findById(req.params.id, (error, foundSong) => {
+        res.render('setlist/show.ejs', {
+            song : foundSong
+        });
+    });
+});
 
 module.exports = router;

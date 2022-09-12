@@ -14,7 +14,7 @@
 
         <% for (i=0; i < songs.length; i++) {%>
             <li>
-                <%=songs[i].title%>
+                <a href="/setlist/<%=songs[i]._id%>"><%=songs[i].title%></a>
             </li>
 
             <form action="/setlist/<%=songs[i]._id%>?_method=DELETE" method="POST">
