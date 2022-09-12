@@ -1,0 +1,24 @@
+h1 {
+    text-align: center;
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table, td {
+    border: 1px solid;
+}
+
+form {
+    display: inline;
+}
+
+input {
+    margin-left: 15px;
+}
+
+button {
+    display: center;
+    text-align: center;
+}

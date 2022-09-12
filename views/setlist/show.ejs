@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=song.title%></title>
+</head>
+<body>
+    <h1><%=song.title%></h1>
+    <p>Artist(s): <%=song.artist%></p>
+    <p>Genre(s): <%=song.genre.join(', ')%></p>
+    <p>Duration: <%=song.duration%></p>
+    <p>Religious Affilation: <%=song.religion%></p>
+    <a href="/setlist"><button>back</button></a>
+    <form action="/setlist/<%=song._id%>?_method=DELETE" method="POST">
+        <input type="submit" value="delete">
+    </form>
+    <a href="/setlist/<%=song._id%>/edit"><button>edit</button></a>
+
+</body>
+</html>
