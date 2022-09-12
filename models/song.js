@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const songSchema = new Schema({
     title: String,
-    artist: String,
-    genre: String,
+    artist: [String],
+    genre: [String],
     religion: String,
     duration: Number
 });

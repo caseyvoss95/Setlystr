@@ -1,5 +1,6 @@
 //dependencies
 const express = require('express');
+const { findByIdAndUpdate } = require('../models/song.js');
 const router = express.Router();
 const Song = require('../models/song.js');
 
@@ -15,13 +16,29 @@ router.get('/', (req, res) => {
 //new
 router.get('/new', (req, res) => {
     res.render('setlist/new.ejs');
+});
+
+//destroy
+router.delete('/:id', (req, res) => {
+    Song.findByIdAndRemove(req.params.id, req.body, (error, foundSong) => {
+    console.log(foundSong);  
+        res.redirect('/');
+    })
+});
+
+//update 
+router.put('/:id', (req, res) => {
+    Song.findByIdAndUpdate(req.params.id, req.body, {new: true}, (error, updatedSong) => {
+        res.redirect(`/setlist/${req.params.id}`);
+    })
 })
 
 //create
 router.post('/', (req, res) => {
     Song.create(req.body, (error, createdSong) => {
+        //createdSong.genre[0] = req.body.genre;
         res.redirect('/setlist');
     })
-})
+});
 
 module.exports = router;
