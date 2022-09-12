@@ -8,7 +8,7 @@ const Song = require('../models/song.js');
 router.get('/', (req, res) => {
     Song.find({}, (error, foundSongs) => {
         res.render('setlist/index.ejs', {
-            songs : foundSongs
+            songs: foundSongs
         });
     })
 });
@@ -21,17 +21,17 @@ router.get('/new', (req, res) => {
 //destroy
 router.delete('/:id', (req, res) => {
     Song.findByIdAndRemove(req.params.id, req.body, (error, foundSong) => {
-    console.log(foundSong);  
+        console.log(foundSong);
         res.redirect('/');
     })
 });
 
 //update 
 router.put('/:id', (req, res) => {
-    Song.findByIdAndUpdate(req.params.id, req.body, {new: true}, (error, updatedSong) => {
+    Song.findByIdAndUpdate(req.params.id, req.body, { new: true }, (error, updatedSong) => {
         res.redirect(`/setlist/${req.params.id}`);
     })
-})
+});
 
 //create
 router.post('/', (req, res) => {
@@ -40,5 +40,15 @@ router.post('/', (req, res) => {
         res.redirect('/setlist');
     })
 });
+
+//edit
+router.get('/:id/edit', (req, res) => {
+    Song.findById(req.params.id, (error, foundSong) => {
+        res.render('setlist/edit.ejs', {
+            song: foundSong
+        });
+    });
+});
+
 
 module.exports = router;
