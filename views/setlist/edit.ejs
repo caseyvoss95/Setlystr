@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/setlist/form.css">
     <title>HELLO FOO</title>
 </head>
 <body>
     <form action="/setlist" method="POST">
+
+<fieldset id="song-info">
+    <legend>song info</legend>
         <label for="title">title</label><input type="text" name="title" id="title" value="<%=song.title%>"> <br>
         <label for="artist">artist</label><input type="text" name="artist" id="artist" value="<%=song.artist[0]%>"><br>
         <label for="duration">duration</label><input type="text" name="duration" id="duration" value="<%=song.duration%>"><br>
@@ -15,8 +19,9 @@
         <label for="genre">genre</label><input type="text" name="genre" id="genre" placeholder="optional" value="<%=song.genre[1]%>">
         <label for="genre">genre</label><input type="text" name="genre" id="genre" placeholder="optional" value="<%=song.genre[2]%>"><br>
         <label for="religion">religion</label><input type="text" name="religion" id="religion" placeholder="optional" value="<%=song.religion%>"><br>
-        <input type="submit" value="submit">
+    </fieldset> 
+        <input type="submit" value="submit" class="button">
     </form>
-    <a href="/setlist/<%=song._id%>"><button>back</button></a>
+    <a href="/setlist/<%=song._id%>"><button class="button">back</button></a>
 </body>
 </html>
