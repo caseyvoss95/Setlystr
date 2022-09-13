@@ -4,11 +4,19 @@ const { findByIdAndUpdate } = require('../models/song.js');
 const router = express.Router();
 const Song = require('../models/song.js');
 
+
+
 //index
 router.get('/', (req, res) => {
     Song.find({}, (error, foundSongs) => {
+        //calculate setlist duration
+        let durationSum = 0;
+        foundSongs.forEach(song => {
+            durationSum += song.duration;
+        })
+        
         res.render('setlist/index.ejs', {
-            songs: foundSongs
+            songs: foundSongs, totalDuration : durationSum
         });
     })
 });
