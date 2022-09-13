@@ -4,13 +4,13 @@ const mongoose = require("mongoose"); //
 const setlistController = require('./controllers/setlist.js');//
 const methodOverride = require('method-override')//
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
 
 require("dotenv").config(); //
+const MONGODB_URI = process.env.MONGODB_URI;
+
 const app = express();//
 
-mongoose.connect(process.env.DATABASE_URL);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 //database connection
 const db = mongoose.connection;
