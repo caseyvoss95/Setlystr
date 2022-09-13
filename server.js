@@ -4,6 +4,8 @@ const mongoose = require("mongoose"); //
 const setlistController = require('./controllers/setlist.js');//
 const methodOverride = require('method-override')//
 
+const MONGODB_URI = process.env.MONGODB_URI;
+
 
 require("dotenv").config(); //
 const app = express();//
