@@ -28,12 +28,14 @@ router.delete('/:id', (req, res) => {
 //update 
 router.put('/:id', (req, res) => {
     Song.findByIdAndUpdate(req.params.id, req.body, { new: true }, (error, updatedSong) => {
+        console.log('updating');
         res.redirect(`/setlist/${req.params.id}`);
     })
 });
 
 //create
 router.post('/', (req, res) => {
+    console.log('creating');
     Song.create(req.body, (error, createdSong) => {
         res.redirect('/setlist');
     })
