@@ -55,6 +55,7 @@ router.get('/seed', (req, res) => {
     Song.deleteMany({}, (error, allSongs) => { });
 
     Song.create(songSeed, (error, allSongs) => {
+                
         res.redirect('/setlist');
     });
 });
@@ -104,7 +105,20 @@ router.post('/', (req, res) => {
             res.render('setlist/new.ejs');
             return;
         }
-        res.redirect('/setlist');
+        console.log('song created');
+        Setlist.findById('6321ecef41983ff3f54641e5', (error, foundSetlist) => {
+            console.log(foundSetlist);
+            console.log(createdSong);
+            foundSetlist.songs.push(createdSong);
+            foundSetlist.quantity += 1;
+            foundSetlist.save();
+            res.redirect('/setlist/test');
+        })
+
+
+
+
+        //res.redirect('/setlist');
     })
 });
 
