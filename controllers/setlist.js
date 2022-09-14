@@ -1,6 +1,5 @@
 //dependencies
 const express = require('express');
-const { findByIdAndUpdate } = require('../models/song.js');
 const Song = require('../models/song.js');
 const Setlist = require('../models/setlist.js');
 const router = express.Router();
@@ -8,9 +7,24 @@ const router = express.Router();
 
 //seed
 const songSeed = require('../models/songSeed.js');
+const { render } = require('ejs');
 
 router.get('/test', (req, res) => {
     console.log('test')
+    Setlist.findById('6321ecef41983ff3f54641e5', (error, foundSetlist) => {
+        console.log(foundSetlist.songs);
+        console.log(foundSetlist.quantity);
+        //calculate setlist duration
+        let durationSum = 0;
+        foundSetlist.songs.forEach(song => {
+            durationSum += song.duration;
+        })
+        //calculate total cost ($100 per hour is default)
+        totalCost = durationSum * (10 / 6);
+        res.render('setlist/index.ejs', { setlist: foundSetlist, songs: foundSetlist.songs, totalDuration: durationSum, cost: totalCost })
+    });
+
+
     const testSong = {
         title: 'Say it aint so',
         artist: ['Johann Sebastian Bach'],
@@ -19,30 +33,30 @@ router.get('/test', (req, res) => {
         religion: false
     };
 
- 
+
     const testObject = Song.create(testSong, (error, createdSong) => {
         console.log('song built');
     });
 
-    const testSetlist = {
-        name: 'first setlist',
-        author: 'Casey Voss',
-        quantity: 1,
-        songs: testObject
-    }
+    // const testSetlist = {
+    //     name: 'first setlist',
+    //     author: 'Casey Voss',
+    //     quantity: 1,
+    //     songs: testObject
+    // }
 
-    Setlist.create(testSetlist, (error, createdSetlist) => {
-        res.redirect('/setlist');
-    });
+    // Setlist.create(testSetlist, (error, createdSetlist) => {
+    //     res.redirect('/setlist');
+    // });
 });
 
-
+//seed
 router.get('/seed', (req, res) => {
-    Song.deleteMany({}, (error, allSongs) => {});
+    Song.deleteMany({}, (error, allSongs) => { });
 
     Song.create(songSeed, (error, allSongs) => {
         res.redirect('/setlist');
-    }); 
+    });
 });
 
 //index
@@ -58,9 +72,9 @@ router.get('/', (req, res) => {
 
 
         res.render('setlist/index.ejs', {
-            songs: foundSongs, totalDuration : durationSum, cost : totalCost
+            songs: foundSongs, totalDuration: durationSum, cost: totalCost
         });
-    })
+    });
 });
 
 //new
@@ -98,7 +112,7 @@ router.post('/', (req, res) => {
 router.get('/:id/edit', (req, res) => {
     Song.findById(req.params.id, (error, foundSong) => {
         res.render('setlist/edit.ejs', {
-            song : foundSong
+            song: foundSong
         });
     });
 });
@@ -107,7 +121,7 @@ router.get('/:id/edit', (req, res) => {
 router.get('/:id', (req, res) => {
     Song.findById(req.params.id, (error, foundSong) => {
         res.render('setlist/show.ejs', {
-            song : foundSong
+            song: foundSong
         });
     });
 });
