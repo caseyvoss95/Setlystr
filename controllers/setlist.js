@@ -4,7 +4,17 @@ const { findByIdAndUpdate } = require('../models/song.js');
 const router = express.Router();
 const Song = require('../models/song.js');
 
+//seed
+const songSeed = require('../models/songSeed.js');
 
+
+router.get('/seed', (req, res) => {
+    Song.deleteMany({}, (error, allSongs) => {});
+
+    Song.create(songSeed, (error, allSongs) => {
+        res.redirect('/setlist');
+    }); 
+});
 
 //index
 router.get('/', (req, res) => {
