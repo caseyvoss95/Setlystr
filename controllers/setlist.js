@@ -3,6 +3,8 @@ const express = require('express');
 const { findByIdAndUpdate } = require('../models/song.js');
 const router = express.Router();
 const Song = require('../models/song.js');
+const Setlist = require('../models/setlist.js');
+
 
 //seed
 const songSeed = require('../models/songSeed.js');
