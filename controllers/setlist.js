@@ -51,7 +51,6 @@ router.post('/', (req, res) => {
             res.render('setlist/new.ejs');
             return;
         }
-        
         res.redirect('/setlist');
     })
 });
