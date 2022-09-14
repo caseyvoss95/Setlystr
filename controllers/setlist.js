@@ -46,8 +46,12 @@ router.put('/:id', (req, res) => {
 
 //create
 router.post('/', (req, res) => {
-    console.log('creating');
     Song.create(req.body, (error, createdSong) => {
+        if (error) {
+            res.render('setlist/new.ejs');
+            return;
+        }
+        
         res.redirect('/setlist');
     })
 });
