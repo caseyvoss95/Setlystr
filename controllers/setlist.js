@@ -1,13 +1,40 @@
 //dependencies
 const express = require('express');
 const { findByIdAndUpdate } = require('../models/song.js');
-const router = express.Router();
 const Song = require('../models/song.js');
 const Setlist = require('../models/setlist.js');
+const router = express.Router();
 
 
 //seed
 const songSeed = require('../models/songSeed.js');
+
+router.get('/test', (req, res) => {
+    console.log('test')
+    const testSong = {
+        title: 'Say it aint so',
+        artist: ['Johann Sebastian Bach'],
+        duration: 2,
+        genre: ['classical', 'baroque'],
+        religion: false
+    };
+
+ 
+    const testObject = Song.create(testSong, (error, createdSong) => {
+        console.log('song built');
+    });
+
+    const testSetlist = {
+        name: 'first setlist',
+        author: 'Casey Voss',
+        quantity: 1,
+        songs: testObject
+    }
+
+    Setlist.create(testSetlist, (error, createdSetlist) => {
+        res.redirect('/setlist');
+    });
+});
 
 
 router.get('/seed', (req, res) => {
