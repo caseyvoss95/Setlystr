@@ -15,3 +15,11 @@ a {
 p {
     text-align: center;
 }
+
+.column {
+    flex: 50%;
+}
+
+.row {
+    display: flex;
+}

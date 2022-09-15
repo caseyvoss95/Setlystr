@@ -9,28 +9,54 @@
     <link rel="stylesheet" href="/setlist/index.css">
     <title>index</title>
 </head>
+
 <body>
     <h1>setlist</h1>
 
     <a href="/setlist/new"><button id="create">add new song</button></a>
 
-    <table>
-        <tbody>
-        <% for (i=0; i < songs.length; i++) {%>
-            <tr>
-                <td>
-                    <a href="/setlist/<%=songs[i]._id%>">
-                        <%=songs[i].title%>
-                    </a>
-                    <form action="/setlist/<%=songs[i]._id%>?_method=DELETE" method="POST">
-                        <input type="submit" value="delete">
-                </td>
-            </tr>
-            </form>
-            <%}%>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="column">
+            <table>
+                <tbody>
+                    <% for (i=0; i < setlist.length; i++) {%>
+                        <tr>
+                            <td>
+                                <a href="/setlist/<%=songs[i]._id%>">
+                                    <%=setlist[i].title%>
+                                </a>
+                                <form action="/setlist/<%=songs[i]._id%>?_method=DELETE" method="POST">
+                                    <input type="submit" value="delete">
+                            </td>
+                        </tr>
+                        </form>
+                        <%}%>
+                </tbody>
+            </table>
+        </div>
+                <div class="column">
+            <table>
+                <tbody>
+                    <% for (i=0; i < songs.length; i++) {%>
+                        <tr>
+                            <td>
+                                <a href="/setlist/<%=songs[i]._id%>">
+                                    <%=songs[i].title%>
+                                </a>
+                                <form action="/setlist/<%=songs[i]._id%>?_method=DELETE" method="POST">
+                                    <input type="submit" value="delete">
+                            </td>
+                        </tr>
+                        </form>
+                        <%}%>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
     <p>Total Duration: <%=totalDuration%> minutes</p>
-    <p>Total Cost: $<%=Math.round(100*cost) / 100%></p>
+    <p>Total Cost: $<%=Math.round(100*cost) / 100%>
+    </p>
 </body>
+
 </html>

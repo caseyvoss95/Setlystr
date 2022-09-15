@@ -11,11 +11,11 @@ const songSeed = require('../models/songSeed.js');
 
 
 router.get('/seed', (req, res) => {
-    Song.deleteMany({}, (error, allSongs) => {});
+    Song.deleteMany({}, (error, allSongs) => { });
 
     Song.create(songSeed, (error, allSongs) => {
         res.redirect('/setlist');
-    }); 
+    });
 });
 
 //index
@@ -29,11 +29,17 @@ router.get('/', (req, res) => {
         //calculate total cost ($100 per hour is default)
         totalCost = durationSum * (10 / 6);
 
-
-        res.render('setlist/index.ejs', {
-            songs: foundSongs, totalDuration : durationSum, cost : totalCost
-        });
+        Setlist.findById('6321ecef41983ff3f54641e5', (error, clientSetlist) => {
+            res.render('setlist/index.ejs', {
+                songs: foundSongs,
+                totalDuration: durationSum,
+                cost: totalCost,
+                setlist: clientSetlist.songs
+            });
+        })
     })
+
+
 });
 
 //new
@@ -71,7 +77,7 @@ router.post('/', (req, res) => {
 router.get('/:id/edit', (req, res) => {
     Song.findById(req.params.id, (error, foundSong) => {
         res.render('setlist/edit.ejs', {
-            song : foundSong
+            song: foundSong
         });
     });
 });
@@ -80,7 +86,7 @@ router.get('/:id/edit', (req, res) => {
 router.get('/:id', (req, res) => {
     Song.findById(req.params.id, (error, foundSong) => {
         res.render('setlist/show.ejs', {
-            song : foundSong
+            song: foundSong
         });
     });
 });
