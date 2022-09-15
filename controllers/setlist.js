@@ -10,7 +10,7 @@ const songSeed = require('../models/songSeed.js');
 
 //new index
 router.get('/', (req, res) => {
-    //console.log('index route reached');
+    console.log('index route reached');
     Setlist.findById('6321ecef41983ff3f54641e5', (error, foundSetlist) => {
         //console.log(foundSetlist.songs);
         //console.log(foundSetlist.quantity);
@@ -72,19 +72,40 @@ router.delete('/:id', (req, res) => {
                 foundSetlist.songs.splice(index, 1);
                 foundSetlist.quantity -= 1;
                 foundSetlist.save();
-                Song.findByIdAndRemove(req.params.id, req.body, (error, foundSong) => {
-                    res.redirect('/setlist');
-                });
+                return;
             };
         });
+    });
+    Song.findByIdAndRemove(req.params.id, req.body, (error, foundSong) => {
+        res.redirect('/setlist');
     });
 });
 
 //update 
 router.put('/:id', (req, res) => {
+    console.log('entering put');
+    
     Song.findByIdAndUpdate(req.params.id, req.body, { new: true }, (error, updatedSong) => {
-        console.log('updating');
-        res.redirect(`/setlist/${req.params.id}`);
+    });
+    console.log('song updated');
+
+    Setlist.findById('6321ecef41983ff3f54641e5', (error, foundSetlist) => {
+        foundSetlist.songs.forEach((song, index) => {
+            console.log('finding by id')
+            if (song._id.toString() === req.params.id) {
+                console.log('index is ', index)
+                //editing setlist song
+                foundSetlist.songs[index].title = req.body.title;
+                //foundSetlist.songs[index].artist = req.body.arist;
+                foundSetlist.songs[index].duration = req.body.duration;
+                //foundSetlist.songs[index].genre = req.body.genre;
+                console.log('edited setlist song');
+                foundSetlist.save();
+                console.log('saved setlist song');
+
+                res.redirect(`/setlist/${req.params.id}`);
+            };
+        });
     })
 });
 
@@ -104,6 +125,8 @@ router.post('/', (req, res) => {
             foundSetlist.save();
             console.log('headed back to test route');
             res.redirect('/setlist');
+            console.log('you shouldnt see me');
+
         });
     });
 });
