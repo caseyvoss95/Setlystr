@@ -22,7 +22,7 @@
                     <% for (i=0; i < setlist.length; i++) {%>
                         <tr>
                             <td>
-                                <a href="/setlist/<%=songs[i]._id%>">
+                                <a href="/setlist/<%=setlist[i]._id%>">
                                     <%=setlist[i].title%>
                                 </a>
                                 <form action="/setlist/<%=songs[i]._id%>?_method=DELETE" method="POST">

@@ -85,9 +85,23 @@ router.get('/:id/edit', (req, res) => {
 //show
 router.get('/:id', (req, res) => {
     Song.findById(req.params.id, (error, foundSong) => {
-        res.render('setlist/show.ejs', {
+        if (!foundSong){ //song is in the client setlist
+            Setlist.findById('6321ecef41983ff3f54641e5', (error, clientSetlist) => {
+                clientSetlist.songs.forEach((song, index) => {
+                    console.log(song);
+                    if (song._id.toString() === req.params.id){
+                        res.render('setlist/show.ejs', {
+                            song : clientSetlist.songs[index]
+                        })
+                    }
+                })
+            })
+        }
+        else {
+          res.render('setlist/show.ejs', {
             song: foundSong
-        });
+        });  
+        } 
     });
 });
 
