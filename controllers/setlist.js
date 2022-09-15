@@ -10,6 +10,7 @@ const songSeed = require('../models/songSeed.js');
 
 //new index
 router.get('/', (req, res) => {
+    //console.log('index route reached');
     Setlist.findById('6321ecef41983ff3f54641e5', (error, foundSetlist) => {
         //console.log(foundSetlist.songs);
         //console.log(foundSetlist.quantity);
@@ -33,11 +34,10 @@ router.get('/seed', (req, res) => {
             console.log('setlist found pushing to array')
             songSeed.forEach(song => {
                 foundSetlist.songs.push(song);
-
             })
             foundSetlist.save();
+            res.redirect('/setlist');
         })
-        res.redirect('/setlist');
     });
 });
 
