@@ -57,11 +57,27 @@ router.delete('/:id', (req, res) => {
 //update 
 router.put('/:id', (req, res) => {
     Song.findByIdAndUpdate(req.params.id, req.body, { new: true }, (error, updatedSong) => {
-        console.log('updating');
-        res.redirect(`/setlist/${req.params.id}`);
+        if (!updatedSong) {
+           res.redirect(`/setlist/${req.params.id}/edit2`)
+        }
+        else {
+            res.redirect(`/setlist/${req.params.id}`);
+        }
     })
 });
 
+// //deep update
+// router.get('/:id/edit2', (req, res) => {
+//     Setlist.findById('6321ecef41983ff3f54641e5', (error, clientSetlist) => {
+//         clientSetlist.songs.forEach((song, index) => {
+//             console.log(song);
+//             if (song._id.toString() === req.params.id){
+//                 song.title = 
+//             }
+//         })
+//     })
+
+// })
 //create
 router.post('/', (req, res) => {
     Song.create(req.body, (error, createdSong) => {
@@ -86,19 +102,21 @@ router.get('/:id/edit', (req, res) => {
 router.get('/:id', (req, res) => {
     Song.findById(req.params.id, (error, foundSong) => {
         if (!foundSong){ //song is in the client setlist
-            Setlist.findById('6321ecef41983ff3f54641e5', (error, clientSetlist) => {
-                clientSetlist.songs.forEach((song, index) => {
-                    console.log(song);
-                    if (song._id.toString() === req.params.id){
-                        res.render('setlist/show.ejs', {
-                            song : clientSetlist.songs[index]
-                        })
-                    }
-                })
-            })
+            // Setlist.findById('6321ecef41983ff3f54641e5', (error, clientSetlist) => {
+            //     clientSetlist.songs.forEach((song, index) => {
+            //         console.log(song);
+            //         if (song._id.toString() === req.params.id){
+            //             res.render('setlist/show.ejs', {
+            //                 song : clientSetlist.songs[index]
+            //             })
+            //         }
+            //     })
+            // })
         }
         else {
-          res.render('setlist/show.ejs', {
+          console.log('song found');
+            res.render('setlist/show.ejs', {
+
             song: foundSong
         });  
         } 

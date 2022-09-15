@@ -1,7 +1,7 @@
 //dependencies
 const express = require("express");//
 const mongoose = require("mongoose"); //
-const setlistController = require('./controllers/setlist.js');//
+const setlistController = require('./controllers/setlist.js');
 const methodOverride = require('method-override')//
 
 
