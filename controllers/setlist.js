@@ -12,8 +12,18 @@ router.get('/:id/add', (req, res) => {
         foundSong.inSetlist = true;
         foundSong.save();
         res.redirect('/setlist');
-    })
-})
+    });
+});
+
+//remove song from setlist
+router.get('/:id/rem', (req, res) => {
+    console.log('rem called')
+    Song.findById(req.params.id, (error, foundSong) => {
+        foundSong.inSetlist = false;
+        foundSong.save(); //TODO add new promise here
+    });
+    res.redirect('/setlist');
+});
 
 //seed
 const songSeed = require('../models/songSeed.js');
@@ -66,7 +76,7 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
     Song.findByIdAndUpdate(req.params.id, req.body, { new: true }, (error, updatedSong) => {
         if (!updatedSong) {
-           res.redirect(`/setlist/${req.params.id}/edit2`)
+            res.redirect(`/setlist/${req.params.id}/edit2`)
         }
         else {
             res.redirect(`/setlist/${req.params.id}`);
@@ -109,7 +119,7 @@ router.get('/:id/edit', (req, res) => {
 //show
 router.get('/:id', (req, res) => {
     Song.findById(req.params.id, (error, foundSong) => {
-        if (!foundSong){ //song is in the client setlist
+        if (!foundSong) { //song is in the client setlist
             // Setlist.findById('6321ecef41983ff3f54641e5', (error, clientSetlist) => {
             //     clientSetlist.songs.forEach((song, index) => {
             //         console.log(song);
@@ -122,12 +132,12 @@ router.get('/:id', (req, res) => {
             // })
         }
         else {
-          console.log('song found');
+            console.log('song found');
             res.render('setlist/show.ejs', {
 
-            song: foundSong
-        });  
-        } 
+                song: foundSong
+            });
+        }
     });
 });
 

@@ -18,3 +18,12 @@ form {
 nav {
     text-align: center;
 }
+
+body {
+    background-image: url('https://c.pxhere.com/photos/e7/17/coffee_notebook_wooden_background_orange_work_table_office-642063.jpg!d');
+    color: white;
+}
+
+a {
+    color: white;
+}

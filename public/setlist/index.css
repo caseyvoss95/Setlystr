@@ -15,9 +15,9 @@ a {
     text-decoration: none;
 }
 
-p {
+/* p {
     text-align: center;
-}
+} */
 
 .column {
     flex: 50%;
@@ -25,4 +25,8 @@ p {
 
 .row {
     display: flex;
+}
+
+h2 {
+    text-align: center;
 }
