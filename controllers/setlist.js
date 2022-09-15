@@ -7,13 +7,12 @@ const router = express.Router();
 
 //seed
 const songSeed = require('../models/songSeed.js');
-const { render } = require('ejs');
 
-router.get('/test', (req, res) => {
-    console.log('test')
+//new index
+router.get('/', (req, res) => {
     Setlist.findById('6321ecef41983ff3f54641e5', (error, foundSetlist) => {
-        console.log(foundSetlist.songs);
-        console.log(foundSetlist.quantity);
+        //console.log(foundSetlist.songs);
+        //console.log(foundSetlist.quantity);
         //calculate setlist duration
         let durationSum = 0;
         foundSetlist.songs.forEach(song => {
@@ -23,31 +22,6 @@ router.get('/test', (req, res) => {
         totalCost = durationSum * (10 / 6);
         res.render('setlist/index.ejs', { setlist: foundSetlist, songs: foundSetlist.songs, totalDuration: durationSum, cost: totalCost })
     });
-
-
-    const testSong = {
-        title: 'Say it aint so',
-        artist: ['Johann Sebastian Bach'],
-        duration: 2,
-        genre: ['classical', 'baroque'],
-        religion: false
-    };
-
-
-    const testObject = Song.create(testSong, (error, createdSong) => {
-        console.log('song built');
-    });
-
-    // const testSetlist = {
-    //     name: 'first setlist',
-    //     author: 'Casey Voss',
-    //     quantity: 1,
-    //     songs: testObject
-    // }
-
-    // Setlist.create(testSetlist, (error, createdSetlist) => {
-    //     res.redirect('/setlist');
-    // });
 });
 
 //seed
@@ -55,28 +29,35 @@ router.get('/seed', (req, res) => {
     Song.deleteMany({}, (error, allSongs) => { });
 
     Song.create(songSeed, (error, allSongs) => {
-                
+        Setlist.findById('6321ecef41983ff3f54641e5', (error, foundSetlist) => {
+            console.log('setlist found pushing to array')
+            songSeed.forEach(song => {
+                foundSetlist.songs.push(song);
+
+            })
+            foundSetlist.save();
+        })
         res.redirect('/setlist');
     });
 });
 
-//index
-router.get('/', (req, res) => {
-    Song.find({}, (error, foundSongs) => {
-        //calculate setlist duration
-        let durationSum = 0;
-        foundSongs.forEach(song => {
-            durationSum += song.duration;
-        })
-        //calculate total cost ($100 per hour is default)
-        totalCost = durationSum * (10 / 6);
+// //index
+// router.get('/', (req, res) => {
+//     Song.find({}, (error, foundSongs) => {
+//         //calculate setlist duration
+//         let durationSum = 0;
+//         foundSongs.forEach(song => {
+//             durationSum += song.duration;
+//         })
+//         //calculate total cost ($100 per hour is default)
+//         totalCost = durationSum * (10 / 6);
 
 
-        res.render('setlist/index.ejs', {
-            songs: foundSongs, totalDuration: durationSum, cost: totalCost
-        });
-    });
-});
+//         res.render('setlist/index.ejs', {
+//             songs: foundSongs, totalDuration: durationSum, cost: totalCost
+//         });
+//     });
+// });
 
 //new
 router.get('/new', (req, res) => {
@@ -85,9 +66,18 @@ router.get('/new', (req, res) => {
 
 //destroy
 router.delete('/:id', (req, res) => {
-    Song.findByIdAndRemove(req.params.id, req.body, (error, foundSong) => {
-        res.redirect('/setlist');
-    })
+    Setlist.findById('6321ecef41983ff3f54641e5', (error, foundSetlist) => {
+        foundSetlist.songs.forEach((song, index) => {
+            if (song._id.toString() === req.params.id) {
+                foundSetlist.songs.splice(index, 1);
+                foundSetlist.quantity -= 1;
+                foundSetlist.save();
+                Song.findByIdAndRemove(req.params.id, req.body, (error, foundSong) => {
+                    res.redirect('/setlist');
+                });
+            };
+        });
+    });
 });
 
 //update 
@@ -105,21 +95,17 @@ router.post('/', (req, res) => {
             res.render('setlist/new.ejs');
             return;
         }
-        console.log('song created');
         Setlist.findById('6321ecef41983ff3f54641e5', (error, foundSetlist) => {
-            console.log(foundSetlist);
-            console.log(createdSong);
+            console.log('setlist found, adding song');
+            //console.log(foundSetlist);
+            //console.log(createdSong);
             foundSetlist.songs.push(createdSong);
             foundSetlist.quantity += 1;
             foundSetlist.save();
-            res.redirect('/setlist/test');
-        })
-
-
-
-
-        //res.redirect('/setlist');
-    })
+            console.log('headed back to test route');
+            res.redirect('/setlist');
+        });
+    });
 });
 
 //edit
