@@ -42,7 +42,9 @@ router.get('/', (req, res) => {
         //calculate setlist duration
         let durationSum = 0;
         foundSongs.forEach(song => {
-            durationSum += song.duration;
+            if (song.inSetlist){
+                durationSum += song.duration;
+            }
         })
         //calculate total cost ($100 per hour is default)
         totalCost = durationSum * (10 / 6);
