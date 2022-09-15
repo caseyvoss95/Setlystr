@@ -6,9 +6,17 @@ const Song = require('../models/song.js');
 const Setlist = require('../models/setlist.js');
 
 
+//add song to setlist
+router.get('/:id/add', (req, res) => {
+    Song.findById(req.params.id, (error, foundSong) => {
+        foundSong.inSetlist = true;
+        foundSong.save();
+        res.redirect('/setlist');
+    })
+})
+
 //seed
 const songSeed = require('../models/songSeed.js');
-
 
 router.get('/seed', (req, res) => {
     Song.deleteMany({}, (error, allSongs) => { });

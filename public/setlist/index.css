@@ -1,8 +1,11 @@
-input {
+input, button {
     float: right;
-    margin-left: 50px;
+    
 }
 
+button {
+    margin-left: 50px;
+}
 #create {
     margin: 0 auto 15px;
     display: block;

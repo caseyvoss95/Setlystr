@@ -23,20 +23,20 @@
                         <% if (songs[i].inSetlist) {%>
                             <tr>
                                 <td>
-                                 <a href="/setlist/<%=songs[i]._id%>">
-                                     <%=songs[i].title%>
-                                 </a>
-                                 <form action="/setlist/<%=songs[i]._id%>?_method=DELETE" method="POST">
-                                    <input type="submit" value="delete">
+                                    <a href="/setlist/<%=songs[i]._id%>">
+                                        <%=songs[i].title%>
+                                    </a>
+                                    <form action="/setlist/<%=songs[i]._id%>?_method=DELETE" method="POST">
+                                        <input type="submit" value="delete">
                                 </td>
-                        </tr>
-                        </form>
+                            </tr>
+                            </form>
                             <%}%>
-                        <%}%>
+                                <%}%>
                 </tbody>
             </table>
         </div>
-                <div class="column">
+        <div class="column">
             <table>
                 <tbody>
                     <% for (i=0; i < songs.length; i++) {%>
@@ -47,9 +47,10 @@
                                 </a>
                                 <form action="/setlist/<%=songs[i]._id%>?_method=DELETE" method="POST">
                                     <input type="submit" value="delete">
+                                </form>
+                                <a href="/setlist/<%=songs[i]._id%>/add"><button>add</button></a>
                             </td>
                         </tr>
-                        </form>
                         <%}%>
                 </tbody>
             </table>
