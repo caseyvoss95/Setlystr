@@ -1,10 +1,7 @@
 //dependencies
 const express = require('express');
-const { findByIdAndUpdate } = require('../models/song.js');
 const router = express.Router();
 const Song = require('../models/song.js');
-const Setlist = require('../models/setlist.js');
-
 
 //add song to setlist
 router.get('/:id/add', (req, res) => {
