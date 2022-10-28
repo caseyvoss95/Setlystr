@@ -1,8 +1,11 @@
-input {
+input, button {
     float: right;
-    margin-left: 50px;
+    
 }
 
+button {
+    margin-left: 50px;
+}
 #create {
     margin: 0 auto 15px;
     display: block;
@@ -12,6 +15,18 @@ a {
     text-decoration: none;
 }
 
-p {
+/* p {
+    text-align: center;
+} */
+
+.column {
+    flex: 50%;
+}
+
+.row {
+    display: flex;
+}
+
+h2 {
     text-align: center;
 }

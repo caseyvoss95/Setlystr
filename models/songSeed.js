@@ -3,26 +3,30 @@ module.exports = [{
     artist: ['Johann Sebastian Bach'],
     duration: 2,
     genre: ['classical', 'baroque'],
-    religion: false
+    religion: false,
+    inSetlist: false
 },
 {
     title: 'How Great Thou Art',
     artist: ['Carl Boberg'],
     duration: 5,
     genre: ['hymn', 'folk'],
-    religion: 'Christian'
+    religion: 'Christian',
+    inSetlist: true
 },
 {
     title: 'Trinkt le Chaim',
     artist: ['Julie Andrews'],
     duration: 4,
     genre: ['hymn', 'spiritual'],
-    religion: 'Jewish'
+    religion: 'Jewish',
+    inSetlist: false
 },
 {
     title: 'Chicken Fried',
     artist: ['Zac Brown Band'],
     duration: 4,
     genre: ['country', 'pop'],
-    religion: false
+    religion: false,
+    inSetlist: false
 }];

@@ -4,6 +4,7 @@ h1 {
 table {
     margin-left: auto;
     margin-right: auto;
+    background-color: white;
 }
 
 table, td {
@@ -17,4 +18,16 @@ form {
 
 nav {
     text-align: center;
+}
+
+body {
+    background-image: url('https://c.pxhere.com/photos/e7/17/coffee_notebook_wooden_background_orange_work_table_office-642063.jpg!d');
+    /* color: white; */
+    background-repeat: no-repeat;
+    background-color: #99715B;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+a {
+    color: black;
 }

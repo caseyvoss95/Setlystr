@@ -6,7 +6,8 @@ const songSchema = new Schema({
     artist: {type: [String], required: true},
     duration: {type: Number, required: true, min: 1},
     genre: [String],
-    religion: String
+    religion: String,
+    inSetlist: Boolean
 });
 
 const Song = mongoose.model('Song', songSchema);
