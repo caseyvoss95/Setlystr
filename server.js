@@ -1,14 +1,13 @@
 //dependencies
-const express = require("express");//
-const mongoose = require("mongoose"); //
+const express = require("express");
+const mongoose = require("mongoose");
 const setlistController = require('./controllers/setlist.js');
-const methodOverride = require('method-override')//
+const methodOverride = require('method-override')
 
-
-require("dotenv").config(); //
+require("dotenv").config();
 const MONGODB_URI = process.env.MONGODB_URI;
 
-const app = express();//
+const app = express();
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -34,4 +33,3 @@ const PORT = process.env.PORT;
 app.listen(PORT || 3000, ()=> {
     console.log("setlystr running");
 });
-//
